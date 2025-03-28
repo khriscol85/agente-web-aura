@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -43,7 +42,6 @@
   <div id="errorMsg"></div>
 
   <script type="text/javascript">
-    // Función segura para inicializar el chat
     function initEmbeddedMessaging() {
       if (typeof embeddedservice_bootstrap === 'undefined') {
         document.getElementById("errorMsg").innerText = "❌ Error: No se pudo cargar el chat. Verifica la configuración del sitio de Salesforce.";
@@ -53,8 +51,8 @@
       try {
         embeddedservice_bootstrap.settings.language = 'es';
         embeddedservice_bootstrap.init(
-          '00DgK0000002JkL',
-          'AgenteWebAura',
+          '00DgK0000002JkL', // ID de tu organización
+          'AgenteWebAura',  // Nombre de implementación
           'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230',
           {
             scrt2URL: 'https://orgfarm-d4f2b011fd-dev-ed.develop.my.salesforce-scrt.com'
@@ -66,10 +64,8 @@
       }
     }
 
-    // Esperar a que se cargue el script antes de conectar el botón
     window.onload = function() {
-      const btn = document.getElementById("chatLauncher");
-      btn.onclick = initEmbeddedMessaging;
+      document.getElementById("chatLauncher").onclick = initEmbeddedMessaging;
     };
   </script>
 
