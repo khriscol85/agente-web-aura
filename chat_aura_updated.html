@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agente Aura Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background-color: #ffffff;
+        }
+        h1 {
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido a nuestro chat de soporte 📦 <strong>Aura Air</strong> ✈️</h1>
+
+    <script type='text/javascript'>
+        function initEmbeddedMessaging() {
+            try {
+                embeddedservice_bootstrap.settings.language = 'es'; // Idioma español
+
+                embeddedservice_bootstrap.init(
+                    '00DgK0000002JkL', // ID de tu organización
+                    'AgenteWebAura', // Nombre de tu deployment
+                    'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230',
+                    {
+                        scrt2URL: 'https://orgfarm-d4f2b011fd-dev-ed.develop.my.salesforce-scrt.com'
+                    }
+                );
+            } catch (err) {
+                console.error('Error al cargar Embedded Messaging:', err);
+            }
+        };
+    </script>
+    <script type='text/javascript' src='https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+</body>
+</html>
