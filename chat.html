@@ -12,38 +12,65 @@
       }
       h1 {
         color: #004b87;
+        margin-bottom: 40px;
+      }
+      #chat-container {
+        margin-top: 20px;
+      }
+      .error-msg {
+        color: red;
+        font-weight: bold;
+      }
+      button {
+        padding: 12px 25px;
+        background-color: #004b87;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
     <h1>Bienvenido al chat de soporte de ✈ Aura Air</h1>
+    <div id="chat-container"></div>
 
     <script>
       window.onload = function () {
-        const script = document.createElement('script');
-        script.src = 'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/embeddedservice/asyncclient/bootstrap.min.js';
+        const container = document.getElementById("chat-container");
+
+        const script = document.createElement("script");
+        script.src =
+          "https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/embeddedservice/asyncclient/bootstrap.min.js";
+
         script.onload = () => {
-          if (typeof embedded_svc !== 'undefined') {
+          if (typeof embedded_svc !== "undefined") {
             embedded_svc.settings.displayHelpButton = true;
-            embedded_svc.settings.language = 'es';
+            embedded_svc.settings.language = "es";
+
             embedded_svc.init(
-              'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com',
-              'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/aurachat',
-              null,
-              '00DXXXXXXXXXXXXXXX', // reemplaza por tu org ID si es necesario
-              'AgenteWebAura',
+              "https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com", // Base URL
+              "https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/aurachat", // Site Path
+              null, // No auth
+              "00DgK0000002JkL", // Org ID
+              "AgenteWebAura", // Deployment name
               {
-                eswLiveAgentDevName: 'ESW_AgenteWebAura_17431791592301',
+                eswLiveAgentDevName: "ESW_AgenteWebAura_17431791592301",
                 isOfflineSupportEnabled: true
               }
             );
           } else {
-            alert('❌ El script de Salesforce no se cargó correctamente. Verifica la URL o las Trusted Sites.');
+            container.innerHTML =
+              '<div class="error-msg">❌ El script de Salesforce no se cargó correctamente. Verifica la URL o las Trusted Sites.</div>';
           }
         };
+
         script.onerror = () => {
-          alert('❌ No se pudo cargar el script bootstrap.min.js. Verifica la URL.');
+          container.innerHTML =
+            '<div class="error-msg">❌ No se pudo cargar el script bootstrap.min.js. Verifica la URL.</div>';
         };
+
         document.body.appendChild(script);
       };
     </script>
