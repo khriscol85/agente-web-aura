@@ -1,84 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat de Soporte | Aura Air</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f6f8;
-      text-align: center;
-    }
-    h1 {
-      margin-top: 3rem;
-      color: #005290;
-    }
-    #chatLauncher {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #005290;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      z-index: 9999;
-    }
-    #errorMsg {
-      color: red;
-      margin-top: 2rem;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>Bienvenido al chat de soporte de ✈️ <strong>Aura Air</strong></h1>
-  <button id="chatLauncher">💬 Chatea con un agente</button>
-  <div id="errorMsg"></div>
-
-  <script type="text/javascript">
-    function initEmbeddedMessaging() {
-      if (typeof embeddedservice_bootstrap === 'undefined') {
-        document.getElementById("errorMsg").innerText =
-          "❌ Error: No se pudo cargar el widget. Revisa la configuración del canal o el endpoint.";
-        return;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat de Soporte - Aura Air</title>
+    <style>
+      body {
+        background-color: #f5f7fa;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 80px;
       }
+      h1 {
+        color: #004b87;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bienvenido al chat de soporte de ✈ Aura Air</h1>
 
-      try {
-        embeddedservice_bootstrap.settings.language = 'es';
-
-        embeddedservice_bootstrap.init(
-          '00DgK0000002JkL',
-          'AgenteWebAura',
-          'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESW_AgenteWebAura_1743179159230',
-          {
-            scrt2URL: 'https://orgfarm-d4f2b011fd-dev-ed.develop.my.salesforce-scrt.com'
+    <script>
+      window.onload = function () {
+        const script = document.createElement('script');
+        script.src = 'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/embeddedservice/asyncclient/bootstrap.min.js';
+        script.onload = () => {
+          if (typeof embedded_svc !== 'undefined') {
+            embedded_svc.settings.displayHelpButton = true;
+            embedded_svc.settings.language = 'es';
+            embedded_svc.init(
+              'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com',
+              'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/aurachat',
+              null,
+              '00DXXXXXXXXXXXXXXX', // reemplaza por tu org ID si es necesario
+              'AgenteWebAura',
+              {
+                eswLiveAgentDevName: 'ESW_AgenteWebAura_17431791592301',
+                isOfflineSupportEnabled: true
+              }
+            );
+          } else {
+            alert('❌ El script de Salesforce no se cargó correctamente. Verifica la URL o las Trusted Sites.');
           }
-        );
-      } catch (e) {
-        console.error('Error iniciando el chat:', e);
-        document.getElementById("errorMsg").innerText =
-          "❌ Error al iniciar el chat. Revisa la consola para más detalles.";
-      }
-    }
-
-    window.onload = function () {
-      document.getElementById("chatLauncher").onclick = initEmbeddedMessaging;
-    };
-  </script>
-
-  <script
-    type="text/javascript"
-    src="https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESW_AgenteWebAura_1743179159230/assets/js/bootstrap.min.js"
-    onerror="document.getElementById('errorMsg').innerText = '❌ Error al cargar el script de Salesforce. Verifica la URL o los permisos de Trusted Sites en Salesforce.'"
-  ></script>
-
-</body>
+        };
+        script.onerror = () => {
+          alert('❌ No se pudo cargar el script bootstrap.min.js. Verifica la URL.');
+        };
+        document.body.appendChild(script);
+      };
+    </script>
+  </body>
 </html>
