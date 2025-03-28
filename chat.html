@@ -30,15 +30,26 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 9999;
     }
+    #errorMsg {
+      color: red;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <h1>Bienvenido a nuestro chat de soporte 📦 <strong>Aura Air</strong> ✈️</h1>
-
-  <button id="chatLauncher" onclick="initEmbeddedMessaging()">💬 Chatea con Aura</button>
+  <button id="chatLauncher">💬 Chatea con Aura</button>
+  <div id="errorMsg"></div>
 
   <script type="text/javascript">
+    // Función segura para inicializar el chat
     function initEmbeddedMessaging() {
+      if (typeof embeddedservice_bootstrap === 'undefined') {
+        document.getElementById("errorMsg").innerText = "❌ Error: No se pudo cargar el chat. Verifica la configuración del sitio de Salesforce.";
+        return;
+      }
+
       try {
         embeddedservice_bootstrap.settings.language = 'es';
         embeddedservice_bootstrap.init(
@@ -50,10 +61,22 @@
           }
         );
       } catch (err) {
-        console.error('Error al cargar Embedded Messaging:', err);
+        console.error('Error al iniciar el chat:', err);
+        document.getElementById("errorMsg").innerText = "❌ Error al iniciar el chat. Consulta la consola para más detalles.";
       }
     }
+
+    // Esperar a que se cargue el script antes de conectar el botón
+    window.onload = function() {
+      const btn = document.getElementById("chatLauncher");
+      btn.onclick = initEmbeddedMessaging;
+    };
   </script>
-  <script type='text/javascript' src='https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230/assets/js/bootstrap.min.js'></script>
+
+  <script 
+    type="text/javascript"
+    src="https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230/assets/js/bootstrap.min.js"
+    onerror="document.getElementById('errorMsg').innerText = '❌ Error al cargar el script de Salesforce. Verifica la URL del sitio o los permisos de Trusted Sites en Salesforce.'">
+  </script>
 </body>
 </html>
