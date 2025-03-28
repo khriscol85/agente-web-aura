@@ -1,20 +1,46 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Agente Aura Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat de Soporte | Aura Air</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 3rem;
+      color: #222;
+    }
+    #chatLauncher {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #005290;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 9999;
+    }
+  </style>
 </head>
 <body>
-  <!-- Contenedor del Agente Web -->
-  <h2>Bienvenido a nuestro chat de soporte 📦 Aura Air ✈ </h2>
+  <h1>Bienvenido a nuestro chat de soporte 📦 <strong>Aura Air</strong> ✈️</h1>
 
-  <!-- Snippet de Salesforce -->
-  <script type='text/javascript'>
+  <button id="chatLauncher" onclick="initEmbeddedMessaging()">💬 Chatea con Aura</button>
+
+  <script type="text/javascript">
     function initEmbeddedMessaging() {
       try {
-        embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
-
+        embeddedservice_bootstrap.settings.language = 'es';
         embeddedservice_bootstrap.init(
           '00DgK0000002JkL',
           'AgenteWebAura',
@@ -24,11 +50,10 @@
           }
         );
       } catch (err) {
-        console.error('Error loading Embedded Messaging: ', err);
+        console.error('Error al cargar Embedded Messaging:', err);
       }
-    };
+    }
   </script>
-  <script type='text/javascript' src='https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
-
+  <script type='text/javascript' src='https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230/assets/js/bootstrap.min.js'></script>
 </body>
 </html>
