@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chat de Soporte | Aura Air</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: #f4f6f8;
       text-align: center;
     }
     h1 {
       margin-top: 3rem;
-      color: #222;
+      color: #005290;
     }
     #chatLauncher {
       position: fixed;
@@ -26,53 +27,58 @@
       padding: 12px 20px;
       font-size: 16px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       z-index: 9999;
     }
     #errorMsg {
       color: red;
-      margin-top: 1rem;
+      margin-top: 2rem;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Bienvenido a nuestro chat de soporte 📦 <strong>Aura Air</strong> ✈️</h1>
-  <button id="chatLauncher">💬 Chatea con Aura</button>
+
+  <h1>Bienvenido al chat de soporte de ✈️ <strong>Aura Air</strong></h1>
+  <button id="chatLauncher">💬 Chatea con un agente</button>
   <div id="errorMsg"></div>
 
   <script type="text/javascript">
     function initEmbeddedMessaging() {
       if (typeof embeddedservice_bootstrap === 'undefined') {
-        document.getElementById("errorMsg").innerText = "❌ Error: No se pudo cargar el chat. Verifica la configuración del sitio de Salesforce.";
+        document.getElementById("errorMsg").innerText =
+          "❌ Error: No se pudo cargar el widget. Revisa la configuración del canal o el endpoint.";
         return;
       }
 
       try {
         embeddedservice_bootstrap.settings.language = 'es';
+
         embeddedservice_bootstrap.init(
-          '00DgK0000002JkL', // ID de tu organización
-          'AgenteWebAura',  // Nombre de implementación
-          'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230',
+          '00DgK0000002JkL',
+          'AgenteWebAura',
+          'https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESW_AgenteWebAura_1743179159230',
           {
             scrt2URL: 'https://orgfarm-d4f2b011fd-dev-ed.develop.my.salesforce-scrt.com'
           }
         );
-      } catch (err) {
-        console.error('Error al iniciar el chat:', err);
-        document.getElementById("errorMsg").innerText = "❌ Error al iniciar el chat. Consulta la consola para más detalles.";
+      } catch (e) {
+        console.error('Error iniciando el chat:', e);
+        document.getElementById("errorMsg").innerText =
+          "❌ Error al iniciar el chat. Revisa la consola para más detalles.";
       }
     }
 
-    window.onload = function() {
+    window.onload = function () {
       document.getElementById("chatLauncher").onclick = initEmbeddedMessaging;
     };
   </script>
 
-  <script 
+  <script
     type="text/javascript"
-    src="https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESWAgenteWebAura1743179159230/assets/js/bootstrap.min.js"
-    onerror="document.getElementById('errorMsg').innerText = '❌ Error al cargar el script de Salesforce. Verifica la URL del sitio o los permisos de Trusted Sites en Salesforce.'">
-  </script>
+    src="https://orgfarm-d4f2b011fd-dev-ed.develop.my.site.com/ESW_AgenteWebAura_1743179159230/assets/js/bootstrap.min.js"
+    onerror="document.getElementById('errorMsg').innerText = '❌ Error al cargar el script de Salesforce. Verifica la URL o los permisos de Trusted Sites en Salesforce.'"
+  ></script>
+
 </body>
 </html>
